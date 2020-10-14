@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <style>
+            canvas {
+                border: 1px solid black;
+                background-color: #302599;
+            }
+            
+            body {
+                margin: 0;
+            }
+            
+            * {
+                cursor: none;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas></canvas>
+        <script>
+        //                                      //
+        // THESE ARE MY JAVASCRIPT CANVAS NOTES //
+        //                                      //
+        
+            //this will search for all canvas tags and will use the first one it finds  ||
+            /* you can also do: var canvas = document.getElementById("canvas")          ||
+                but you have to have and id on the canvas tag                          \_/
+            */
+            var canvas = document.querySelector('canvas') // creates a canvas variable that is linked to the canvas on screen
+            
+            canvas.width = window.innerWidth // maximises the canvas to fit the window
+            canvas.height = window.innerHeight // maximises the canvas to fit the window
+            
+            var c = canvas.getContext('2d') // allows you to edit the properties of the canvas
+            
+            // fillStyle is a property NOT a method so you have to put and equals sign
+            // and you HAVE TO remember to put it in quotes (can be: rgba, hexadecimal, or text color)
+            // it is VERY strict about syntax 
+               /* <--
+            c.fillStyle = '#00beeb'
+            c.fillRect(100, 100, 100, 100) // creates a rectangle that will appear on the screen (X from top, Y from top, width, height)
+            
+            c.beginPath() //begins a path of a line
+            c.moveTo(30, 30) // moves the "point" to where you want to go without drawing  (Distance from left side, distance from right side)
+            c.lineTo(300, 30) // creates an invisible "line" that will get colored in later (Distance from left side, distance from right side)
+            c.lineWidth = 10 // This changes the line width
+            c.strokeStyle = 'red' // like fillstyle but is for lines and stroking. it HAS to have an equals sign because IT...IS...A...PROPERTY!!!
+            c.strokeStyle = 'rgba(240,0,230,1)' // for some reason the rgba is like a function so it has to be done like this
+            c.stroke() // acctually draws what "lines" you have
+            
+            // arc / circle
+            c.beginPath(); // ALWAYS capitalize Math because it could screw you up
+            c.arc(500,200,30,0,Math.PI * 2,false); // measures in radians (X,Y,Radius,Start angle,End angle,drawcounterclockwise)
+            c.strokeStyle = 'blue';
+            c.stroke();
+            
+            // for
+            for (var i = 1; i < 3; i++) {
+                var x = Math.random() * window.innerWidth;
+                var y = Math.random() * window.innerHeight;
+                
+                c.beginPath();
+                c.arc(x,y,30,0,Math.PI * 2,false);
+                c.strokeStyle = 'blue';
+                c.stroke();
+            } */
+            
+            // this is a way to make an object but it has to be done like this for a varibale
+            var mouse = { // it's basically an array with named values and a few methods.
+                x: undefined, // this always has to have a comma because this a way to make an object
+                y: undefined /* don't put this.something because thats only for functions because the 
+                function is a way to make a new object so it's like a constructor */
+            }
+            
+            var colorArray = [
+                '#081CFF',
+                '#086BEB',
+                '#4889FF',
+                '#8CB1EB',
+                '#C1E3FF',
+            ]
+            
+            window.addEventListener('mousemove',
+                function(event) { // event is a buildt in parameter that is what the event was
+                    mouse.x = event.x; /* this will set the x property of */
+                    mouse.y = event.y; //the mouse object above to the x coordinate of the event  
+            }) // this listens for an event in the window. the type needs to be in quotes (type, listener, useCapture)
+            // the listener is the function you want to run if this event occurs
+            
+            window.addEventListener('resize', function() { // Event listeners will run all the time not once
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                
+                init();
+            })
+                   
+            var a = 0;
+            var r = 0;
+            var d = 0;
+            var e = 0;
+            var n = 0;
+            
+                window.addEventListener('keydown', function(key) {
+                    if (key.keyCode == '40') {
+                        a = 0
+                        r = 0
+                        d = 0
+                        e = 0
+                        n = 0
+                    }
+                    
+                    else if (key.keyCode == '65') {
+                        if (r == 0 && d == 0 && e == 0 && n == 0) {
+                            a = 1;
+                        }
+                    }
+                    
+                    else if (key.keyCode == '82') {
+                        if (a == 1 && d == 0 && e == 0 && n == 0) {
+                            r = 1;
+                        }
+                       
+                    }
+                    
+                    else if (key.keyCode == '68') {
+                        if (a == 1 && r == 1 && e == 0 && n == 0) {
+                            d = 1;
+                        }
+                    }
+                    
+                    else if (key.keyCode == '69') {
+                        if (a == 1 && r == 1 && d == 1 && n == 0) {
+                            e = 1;
+                        }
+                    }
+                    
+                    else if (key.keyCode == '78') {
+                        if (a == 1 && r == 1 && d == 1 && e == 1) {
+                            n = 1;
+                        }
+                    }
+                    
+                    
+                })
+                
+                var click = 0;
+                
+                window.addEventListener('click', function(event) {
+                    click = 1;
+                })
+            
+            
+            
+            function Circle(x, y, dx, dy, radius, minRadius) { // this is a function that has properties and is used as an object
+                this.x = x;         /* a function with properties like this and methods are objects   */
+                this.y = y;
+                this.dx = dx;
+                this.dy = dy;
+                this.radius = radius;
+                this.color = '#bffcff'//colorArray[Math.floor(Math.random() * colorArray.length)];
+                // Draw Method
+                this.draw = function() { // this is basically a property but it has a function
+                    c.beginPath();       // the function has to be written like this where the name is anonymous
+                    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                    c.lineWidth = 1
+                    c.strokeStyle = '#99ddff'
+                    c.stroke();
+                    c.fillStyle = this.color;
+                    c.fill();
+                }
+                // Update Method
+                this.update = function() {
+                     if (this.x + this.radius > innerWidth || this.x - this.radius < 0) {
+                        this.dx = -this.dx;
+                    };
+                
+                    if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
+                        this.dy = -this.dy;
+                    };
+                
+                    this.x += this.dx;
+                    this.y += this.dy;
+                    
+                    var growRange = 50;
+                    var maxRadius = 5;
+                   
+                    if (mouse.x - this.x < growRange && mouse.x - this.x > -growRange && mouse.y - this.y < growRange && mouse.y - this.y > -growRange) {
+                        if (this.radius < maxRadius) {
+                            this.radius += 1;
+                        }
+                    } else if (this.radius > minRadius) {
+                        this.radius -= 1;
+                    }
+                    
+                   /* if (click == 1 && mouse.x - this.x < growRange && mouse.x - this.x > -growRange
+                    && mouse.y - this.y < growRange && mouse.y - this.y > -growRange) {
+                        
+                        for (var i = 0; i < 20; i++) {
+                            this.radius += 1
+                        }
+                        
+                        click = 0;
+                    }
+                    */
+                    this.draw();
+                }
+            }
+            
+            var circle = new Circle(200, 200, 3, 3, 10);
+            
+            var circleArray = [];
+            
+            function init() {
+                
+                var speed = 1;
+                
+                circleArray = []
+                for (var i = 0; i < (innerHeight / 700) * innerWidth; i++) {
+                var radius = Math.random() * 3 + 1;
+                var minRadius = radius;
+                var x = Math.random() * (innerWidth - radius * 2) + radius; 
+                var y = Math.random() * (innerHeight - radius * 2) + radius;
+                var dx = (Math.random() - .5) * speed;
+                var dy = (Math.random() - .5) * speed;
+
+                circleArray.push(new Circle(x, y, dx, dy, radius, minRadius));
+                }
+            }
+            
+            function animate() {
+                requestAnimationFrame(animate); // this will loop this function forever
+                c.clearRect(0, 0, innerWidth, innerHeight); // clears like a fillRect
+                    
+                for (var i = 0; i < circleArray.length; i++) { // this gets each circle and calls the update method on each one
+                    circleArray[i].update();
+                }
+                
+                if (a == 1 && r == 1 && d == 1 && e == 1 && n == 1) {
+                   alert('Arden');
+                   a = 0;
+                }
+               
+            }
+            
+            init();
+            animate();
+        </script>
+    </body>
+</html>
