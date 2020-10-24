@@ -51,7 +51,7 @@ function stopEvent(e){if(e.stopPropogation)
 e.stopPropogation();if(e.preventDefault)
 e.preventDefault();e.returnValue=false;}
 function elementIsContainedIn(element1,element2){if(element.contains)
-return element1.contains(element2);return!!(element1.compareDocumentPosition(element2)&16);};function code(name){var table={16:'up',40:'down',37:'left',39:'right',27:'esc'};if(table[name])return table[name];return String.fromCharCode(name);};function random(min,max){return Math.floor(Math.random()*(max-min+1)+min);};function getRect(element){if(typeof element.getBoundingClientRect==='function'){var rect=element.getBoundingClientRect();var sx=window.pageXOffset;var sy=window.pageYOffset;return{width:rect.width,height:rect.height,left:rect.left+sx,top:rect.top+sy};}
+return element1.contains(element2);return!!(element1.compareDocumentPosition(element2)&16);};function code(name){var table={38:'up',40:'down',37:'left',39:'right',27:'esc'};if(table[name])return table[name];return String.fromCharCode(name);};function random(min,max){return Math.floor(Math.random()*(max-min+1)+min);};function getRect(element){if(typeof element.getBoundingClientRect==='function'){var rect=element.getBoundingClientRect();var sx=window.pageXOffset;var sy=window.pageYOffset;return{width:rect.width,height:rect.height,left:rect.left+sx,top:rect.top+sy};}
 var rect={width:element.offsetWidth,height:element.offsetHeight,left:0,top:0};var el=element;while(el){rect.left+=el.offsetLeft;rect.top+=el.offsetTop;el=el.offsetParent;}
 return rect;}
 function getCompatElement(){var doc=document;return(!doc.compatMode||doc.compatMode=='CSS1Compat')?doc.documentElement:doc.body;}
