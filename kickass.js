@@ -1798,12 +1798,6 @@
             }
         },
         blow: function() {
-            delay(1000, function() {
-                
-            }, this);
-            delay(2000, function() {
-                
-            }, this);
             delay(3000, function() {
                 
             }, this);
