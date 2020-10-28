@@ -1794,7 +1794,7 @@
             if (this.nextBomb < 0) {
                 this.game.menuManager.showBombMenu();
                 this.nextBomb = -1;
-                /*this.game.ui.showMessage("BOMB IS READY<br />(lower right corner or F)");*/
+                this.game.ui.showMessage("BOMB IS READY<br />(lower right corner or F)");
             }
         },
         blow: function() {
