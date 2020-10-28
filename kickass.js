@@ -1798,15 +1798,14 @@
             }
         },
         blow: function() {
-            /*var message = this.game.ui.showMessage("3...", 5000);*/
             delay(1000, function() {
-                /*message.innerHTML = "2...";*/
+                
             }, this);
             delay(2000, function() {
-                /*message.innerHTML = "1...";*/
+                
             }, this);
             delay(3000, function() {
-                /*message.innerHTML = "boom";*/
+                
             }, this);
             delay(3000, this.blowStuffUp, this);
             this.nextBomb = this.bombShowDelay;
