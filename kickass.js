@@ -1798,10 +1798,7 @@
             }
         },
         blow: function() {
-            delay(3000, function() {
-                
-            }, this);
-            delay(3000, this.blowStuffUp, this);
+            delay(0, this.blowStuffUp, this);
             this.nextBomb = this.bombShowDelay;
         },
         blowStuffUp: function() {
