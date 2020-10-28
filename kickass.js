@@ -1780,7 +1780,7 @@
     var BombManager = new Class({
         initialize: function(game) {
             this.game = game;
-            this.bombShowDelay = -1;
+            this.bombShowDelay = 30;
             this.nextBomb = this.bombShowDelay;
         },
         update: function(tdelta) {
