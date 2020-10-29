@@ -9,7 +9,7 @@ if (s!='twirl'&&s!='shake') {
   s.id='TWIRLIE';
   s.innerHTML='Toggle twirl/shake <strong>twirl</strong> <button id="TWIRLIECLOSE">Close</button>';
   document.body.appendChild(s);
-  s='shake';
+  s='twirl';
   var TWIRLIE=function(e){
     if (e.target.id=="TWIRLIE") {
       s=s=='twirl'?'shake':'twirl';
@@ -20,12 +20,12 @@ if (s!='twirl'&&s!='shake') {
       document.body.removeChild(document.querySelector('#TWIRLIE'));
     }
     else if (s=='shake') {
-      if (e.target.style.animation=='shake .1s linear infinite') e.target.style.animation='';
-      else e.target.style.animation='shake .1s linear infinite';
-    }
-    else {
       if (e.target.style.animation=='twirl 1s linear infinite') e.target.style.animation='';
       else e.target.style.animation='twirl 1s linear infinite';
+    }
+    else {
+      if (e.target.style.animation=='shake .1s linear infinite') e.target.style.animation='';
+      else e.target.style.animation='shake .1s linear infinite';
     }
     var eStyles=e.target.currentStyle?e.target.currentStyle:getComputedStyle(e.target,null);
     if (eStyles.display=="inline") e.target.style.display="inline-block";
